@@ -1,0 +1,29 @@
+@model IEnumerable<Cookbook.Common.Models.Ingredient>
+
+@using (Html.BeginForm("IngredientsList", "Ingredients", FormMethod.Post, new
+{
+    @class = "form-horizontal",
+    role = "form"
+}))
+{
+    <h4>Ingredients list</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Kcal per 100</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ingredient in Model)
+            {
+                <tr>
+                    <td scope="row">@ingredient.Id</td>
+                    <td>@ingredient.Name</td>
+                    <td>@ingredient.Kcal100</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
