@@ -1,54 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
 using Cookbook.Common.Models;
 using System.Collections.Generic;
-using Cookbook.DAL;
 using Cookbook.DAL.EF;
+using Cookbook.WebApi.Helpers;
 
 namespace Cookbook.Controllers
 {
     [ApiController]
-    [Route("cookbookitems")]
-    public class CookBookController: ControllerBase
+    [Route("_api/cookbookitems/[Action]")]
+    public class CookBookController : ControllerBase
     {
-        private readonly InMemoryRepository _repository;
-        private readonly CookbookContext _dbContext;
-        public CookBookController(CookbookContext context){
-            _repository = new InMemoryRepository();
-            _dbContext = context;
+        private readonly RepositoriesHelper _repositoryHelper;
+        public CookBookController(CookbookContext context)
+        {
+            _repositoryHelper = new RepositoriesHelper(context);
         }
 
         [HttpGet]
-        public IEnumerable<CookBookItem> GetCookBookItems()
+        [ActionName(nameof(GetAllIngredients))]
+        public IEnumerable<Ingredient> GetAllIngredients()
         {
-            return _repository.GetCookBookItems();
+            return _repositoryHelper.GetAllIngredients();
         }
 
-        [HttpGet("int: id")]
+        [HttpGet]
+        [ActionName(nameof(GetAllRecipes))]
+        public IEnumerable<Recipe> GetAllRecipes()
+        {
+            return _repositoryHelper.GetAllRecipes();
+        }
+
+        [HttpGet("id")]
+        [ActionName(nameof(GetCookBookItemsById))]
         public CookBookItem GetCookBookItemsById(int id)
         {
-            return _repository.GetCookBookItem(id);
+            return _repositoryHelper.GetCookBookItem(id);
         }
 
         [HttpPost]
-        public IActionResult PostDescription()
+        public IActionResult InsertIngredient([FromBody] Ingredient ingredient)
         {
-            var coo = new CookBookItem
-            {
-                IngredientId = 1,
-                RecipeId = 2,
-                Ingredient = new Ingredient
-                {
-                    Name = "Test_2",
-                    Kcal100 = 28
-                },
-                Recipe = new Recipe
-                {
-                    DescriptionID = 2,
-                    Name = "Test_2"
-                }
-                };
-            _dbContext.CookBookItems.Add(coo);
-            _dbContext.SaveChanges();
+            _repositoryHelper.InsertIngredient(ingredient);
             return Ok();
         }
     }

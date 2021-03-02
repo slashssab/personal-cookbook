@@ -1,33 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Cookbook.Common.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CookBook.WebPage.Controllers
 {
     public class IngredientsController : Controller
     {
-        public IActionResult Index()
+        public async Task<ActionResult> Index()
+        { 
+            IEnumerable<Ingredient> ingredientsList = await Helpers.CookBookReciver.GetAlIngredients();
+            return View("Index", ingredientsList);     
+        }
+ 
+        public ActionResult ngredientsList()
         {
-            return View(_getIngredients());
+            return PartialView("IngredientsList");  
         }
 
-        private List<Ingredient> _getIngredients()
+        [HttpPost]
+        public async Task<ActionResult> CreateIngredient(Ingredient ingredient)
         {
-            return new List<Ingredient> 
-            {
-                new Ingredient
-                {
-                    Id = 1,
-                    Name = "Test_1",
-                    Kcal100 = 100
-                },
-                new Ingredient
-                {
-                    Id = 2,
-                    Name = "Test_1",
-                    Kcal100 = 100
-                }
-            };
+            await Helpers.CookBookExporter.InsertIngredient(ingredient);
+            return RedirectToAction("Index", "Ingredients");
         }
     }
 }
