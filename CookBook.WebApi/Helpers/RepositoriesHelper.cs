@@ -35,5 +35,10 @@ namespace Cookbook.WebApi.Helpers
                 _repositoriesManager.IngredientsRepository.Insert(ingredient);
             }
         }
+
+        public void DeleteIngredient(int id)
+        {
+            _repositoriesManager.IngredientsRepository.Delete(id);
+        }
     }
 }

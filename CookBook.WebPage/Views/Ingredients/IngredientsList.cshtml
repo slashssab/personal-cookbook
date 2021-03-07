@@ -13,6 +13,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Kcal per 100</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,9 @@
                     <td scope="row">@ingredient.Id</td>
                     <td>@ingredient.Name</td>
                     <td>@ingredient.Kcal100</td>
+                    <td>   
+                         @Html.ActionLink("Delete", "Delete", "Ingredients", new { Id = ingredient.Id })
+                    </td>
                 </tr>
             }
         </tbody>

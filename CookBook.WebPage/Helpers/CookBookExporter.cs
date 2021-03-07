@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -22,7 +21,7 @@ namespace CookBook.WebPage.Helpers
            await _callPostCookBookApi<Recipe>(StringConstants.GetAllRecipesApiAction, model);          
         }
 
-        private static async Task _callPostCookBookApi<T>(string apiMethodUrl, T obect)
+        private static async Task _callPostCookBookApi<T>(string apiMethodUrl, T model)
         {
             var Baseurl = StringConstants.BaseUrl;
             using (var client = new HttpClient())
@@ -31,7 +30,7 @@ namespace CookBook.WebPage.Helpers
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var objectJson = JsonSerializer.Serialize<T>(obect);
+                var objectJson = JsonSerializer.Serialize<T>(model);
                 HttpResponseMessage Res = await client.PostAsync(apiMethodUrl, new StringContent(objectJson, Encoding.UTF8, "application/json"));
  
                 if (!Res.IsSuccessStatusCode)

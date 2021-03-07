@@ -13,6 +13,16 @@ namespace Cookbook.WebApi.DAL.Repositories
             _dbContext = context;
         }
 
+        public void Delete(int id)
+        {
+            var ingredientToRemove = this.GetById(id);
+            if(ingredientToRemove != null)
+            {
+                _dbContext.Ingredients.Remove(ingredientToRemove);
+                _dbContext.SaveChanges();
+            }
+        }
+
         public IEnumerable<Ingredient> GetAll()
         {
             return _dbContext.Ingredients;

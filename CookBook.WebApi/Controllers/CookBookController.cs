@@ -43,5 +43,13 @@ namespace Cookbook.Controllers
             _repositoryHelper.InsertIngredient(ingredient);
             return Ok();
         }
+
+        [HttpDelete("id")]
+        [ActionName(nameof(DeleteIngredient))]
+        public IActionResult DeleteIngredient(int id)
+        {
+            _repositoryHelper.DeleteIngredient(id);
+            return Ok();
+        }
     }
 }

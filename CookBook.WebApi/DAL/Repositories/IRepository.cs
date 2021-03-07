@@ -7,5 +7,6 @@ namespace Cookbook.WebApi.DAL.Repositories
         IEnumerable<T> GetAll();
         T GetById(int id);
         void Insert(T item);
+        void Delete(int id);
     }
 }
