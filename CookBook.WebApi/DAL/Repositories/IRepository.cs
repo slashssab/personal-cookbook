@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Cookbook.WebApi.DAL.Repositories
@@ -8,5 +9,6 @@ namespace Cookbook.WebApi.DAL.Repositories
         T GetById(int id);
         void Insert(T item);
         void Delete(int id);
+        IEnumerable<T> GetByQuery(Func<T, bool> query);
     }
 }

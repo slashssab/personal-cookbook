@@ -1,29 +1,12 @@
-﻿@model IEnumerable<Cookbook.Common.Models.Recipe>  
+﻿@model IEnumerable<Cookbook.Common.Models.Recipe>
 @{
     ViewData["Title"] = "Ingredients";
 }
-<div id="root" onload="hello();"></div>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <button type="button" class="btn btn-dark" onclick="hello();">Dark</button>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Kcal per 100</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var recipe in Model)  
-            {  
-                <tr>  
-                    <td scope="row">@recipe.Id</td>  
-                    <td>@recipe.Name</td>  
-                    <td>@recipe.Name</td>   
-                </tr>  
-            }
-        </tbody>
-    </table>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-lg-6">
+        @await Html.PartialAsync("RecipesList", Model)
+    </div>
+    <div class="col-lg-6">
+        @await Html.PartialAsync("CreateRecipe",Model.First())
+    </div>
 </div>

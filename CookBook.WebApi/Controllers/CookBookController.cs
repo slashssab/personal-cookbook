@@ -3,6 +3,7 @@ using Cookbook.Common.Models;
 using System.Collections.Generic;
 using Cookbook.DAL.EF;
 using Cookbook.WebApi.Helpers;
+using System.Linq;
 
 namespace Cookbook.Controllers
 {
@@ -31,10 +32,17 @@ namespace Cookbook.Controllers
         }
 
         [HttpGet("id")]
-        [ActionName(nameof(GetCookBookItemsById))]
-        public CookBookItem GetCookBookItemsById(int id)
+        [ActionName(nameof(GetCookBookItemById))]
+        public CookBookItem GetCookBookItemById(int id)
         {
             return _repositoryHelper.GetCookBookItem(id);
+        }
+
+        [HttpGet("id")]
+        [ActionName(nameof(GetRecipeById))]
+        public Recipe GetRecipeById(int id)
+        {
+            return _repositoryHelper.GetRecipeById(id);
         }
 
         [HttpPost]
@@ -44,11 +52,26 @@ namespace Cookbook.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult InsertRecipe([FromBody] Recipe recipe)
+        {
+            _repositoryHelper.InsertRecipe(recipe);
+            return Ok();
+        }
+
         [HttpDelete("id")]
         [ActionName(nameof(DeleteIngredient))]
         public IActionResult DeleteIngredient(int id)
         {
             _repositoryHelper.DeleteIngredient(id);
+            return Ok();
+        }
+
+        [HttpDelete("id")]
+        [ActionName(nameof(DeleteRecipe))]
+        public IActionResult DeleteRecipe(int id)
+        {
+            _repositoryHelper.DeleteRecipe(id);
             return Ok();
         }
     }

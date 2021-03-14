@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cookbook.Common.Models;
@@ -31,6 +32,11 @@ namespace Cookbook.WebApi.DAL.Repositories
         public CookBookItem GetById(int id)
         {
             return _dbContext.CookBookItems.SingleOrDefault(d => d.Id == id);
+        }
+
+        public IEnumerable<CookBookItem> GetByQuery(Func<CookBookItem, bool> query)
+        {
+            return _dbContext.CookBookItems.Where(query);
         }
 
         public void Insert(CookBookItem item)

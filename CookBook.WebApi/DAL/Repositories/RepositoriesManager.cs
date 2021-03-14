@@ -48,6 +48,20 @@ namespace Cookbook.WebApi.DAL.Repositories
             }
         }
 
+        private DescriptionRepository _descriptionsRepository;
+
+        public DescriptionRepository DescriptionsRepository
+        {
+            get 
+            {
+                if(_descriptionsRepository == null)
+                {
+                    _descriptionsRepository = new DescriptionRepository(_context);
+                }
+                return _descriptionsRepository;
+            }
+        }
+
         public RepositoriesManager(CookbookContext context)
         {
             _context = context;

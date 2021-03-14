@@ -12,6 +12,12 @@ namespace CookBook.WebPage.Helpers
         {
             await _callDeleteCookBookApi(StringConstants.DeleteIngredientApiAction, id);  
         }
+
+        public async static Task DeleteRecipe(int id)
+        {
+            await _callDeleteCookBookApi(StringConstants.DeleteRecipeApiAction, id);  
+        }
+
         private static async Task _callDeleteCookBookApi(string apiMethodUrlScheme, int id)
         {
             var apiMethodUrl = string.Format(apiMethodUrlScheme, id);

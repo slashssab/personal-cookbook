@@ -14,7 +14,7 @@ namespace CookBook.WebPage.Controllers
             return View("Index", ingredientsList);
         }
 
-        public ActionResult ngredientsList()
+        public ActionResult IngredientsList()
         {
             return PartialView("IngredientsList");
         }

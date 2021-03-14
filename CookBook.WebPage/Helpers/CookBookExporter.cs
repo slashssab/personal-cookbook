@@ -18,7 +18,7 @@ namespace CookBook.WebPage.Helpers
 
         public async static Task InsertRecipe(Recipe model)
         {
-           await _callPostCookBookApi<Recipe>(StringConstants.GetAllRecipesApiAction, model);          
+           await _callPostCookBookApi<Recipe>(StringConstants.InsertRecipeApiAction, model);          
         }
 
         private static async Task _callPostCookBookApi<T>(string apiMethodUrl, T model)

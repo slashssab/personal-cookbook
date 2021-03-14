@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cookbook.Common.Models;
@@ -31,6 +32,11 @@ namespace Cookbook.WebApi.DAL.Repositories
         public Ingredient GetById(int id)
         {
             return _dbContext.Ingredients.SingleOrDefault(r => r.Id == id);          
+        }
+
+        public IEnumerable<Ingredient> GetByQuery(Func<Ingredient, bool> query)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Insert(Ingredient item)

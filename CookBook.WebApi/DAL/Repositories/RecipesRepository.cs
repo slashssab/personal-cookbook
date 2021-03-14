@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cookbook.Common.Models;
 using Cookbook.DAL.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cookbook.WebApi.DAL.Repositories
 {
@@ -15,22 +17,38 @@ namespace Cookbook.WebApi.DAL.Repositories
 
         public void Delete(int id)
         {
-            var recipeToRemove = this.GetById(id);
+            var recipeToRemove = _dbContext.Recipes.Where(e => e.Id == id)
+            .Include(e => e.CookBookItems)
+            .Include(e => e.Description)
+            .First();
+
             if(recipeToRemove != null)
             {
-                _dbContext.Recipes.Remove(recipeToRemove);
+                _dbContext.Remove(recipeToRemove);
                 _dbContext.SaveChanges();
             }
         }
 
         public IEnumerable<Recipe> GetAll()
         {
-            return _dbContext.Recipes;          
+            return _dbContext.Recipes
+            .Include(e => e.CookBookItems)
+            .ThenInclude(ci => ci.Ingredient)
+            .Include(e => e.Description);
         }
 
         public Recipe GetById(int id)
         {
-            return _dbContext.Recipes.SingleOrDefault(r => r.Id == id);          
+            return _dbContext.Recipes
+            .Include(e => e.CookBookItems)
+            .ThenInclude(ci => ci.Ingredient)
+            .Include(e => e.Description)
+            .SingleOrDefault(r => r.Id == id);          
+        }
+
+        public IEnumerable<Recipe> GetByQuery(Func<Recipe, bool> query)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Insert(Recipe item)

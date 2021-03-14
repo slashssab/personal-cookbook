@@ -23,9 +23,24 @@ namespace Cookbook.WebApi.Helpers
             return _repositoriesManager.RecipesRepository.GetAll();
         }
 
+        public Recipe GetRecipeById(int id)
+        {
+            return _repositoriesManager.RecipesRepository.GetById(id);
+        }
+
         public CookBookItem GetCookBookItem(int id)
         {
             return _repositoriesManager.CookBookItemsRepository.GetById(id);
+        }
+        
+        public IEnumerable<CookBookItem> GetCookBookItemsByRecipeId(int id)
+        {
+            return _repositoriesManager.CookBookItemsRepository.GetByQuery(ci => ci.RecipeId == id);
+        }
+
+        public Description GetDescriptionById(int id)
+        {
+            return _repositoriesManager.DescriptionsRepository.GetById(id);
         }
 
         public void InsertIngredient(Ingredient ingredient)
@@ -36,9 +51,22 @@ namespace Cookbook.WebApi.Helpers
             }
         }
 
+        public void InsertRecipe(Recipe recipe)
+        {
+            if (recipe != null)
+            {
+                _repositoriesManager.RecipesRepository.Insert(recipe);
+            }
+        }
+
         public void DeleteIngredient(int id)
         {
             _repositoriesManager.IngredientsRepository.Delete(id);
+        }
+
+        public void DeleteRecipe(int id)
+        {
+            _repositoriesManager.RecipesRepository.Delete(id);
         }
     }
 }

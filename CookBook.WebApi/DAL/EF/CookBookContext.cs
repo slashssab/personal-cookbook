@@ -17,23 +17,23 @@ namespace Cookbook.DAL.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CookBookItem>()
-                .HasOne(r => r.Recipe);
-            
-            modelBuilder.Entity<CookBookItem>()
-                .HasOne(r => r.Ingredient);
-
-            modelBuilder.Entity<CookBookItem>()
-                .HasKey(i => i.Id);
-
-            modelBuilder.Entity<Ingredient>()
-                .HasKey(i => i.Id);
-
-            modelBuilder.Entity<Recipe>()
-                .HasKey(i => i.Id);
-
             modelBuilder.Entity<Description>()
-                .HasKey(i => i.Id);
+                .HasOne<Recipe>(a => a.Recipe)
+                .WithOne(b => b.Description)
+                .HasForeignKey<Recipe>(e => e.DescriptionID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CookBookItem>()
+                .HasOne<Recipe>(s => s.Recipe)
+                .WithMany(g => g.CookBookItems)
+                .HasForeignKey(s => s.RecipeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CookBookItem>()
+                .HasOne<Ingredient>(s => s.Ingredient)
+                .WithMany(g => g.CookBookItems)
+                .HasForeignKey(s => s.IngredientId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
