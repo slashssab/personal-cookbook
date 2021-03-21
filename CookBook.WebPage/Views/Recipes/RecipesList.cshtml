@@ -1,4 +1,4 @@
-@model IEnumerable<Cookbook.Common.Models.Recipe>
+@model List<CookBook.WebPage.Models.RecipeViewModel>
 
 @using (Html.BeginForm("RecipesList", "Recipes", FormMethod.Post, new
 {
@@ -10,17 +10,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">Calories</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var recipe in Model)  
             {  
-                <tr>  
-                    <td scope="row">@recipe.Id</td>  
-                    <td>@recipe.Name</td>  
+                <tr> 
+                    <td scope="row">@recipe.Name</td>  
+                    <td scope="row">@recipe.Calories</td>
                     <td>   
                          @Html.ActionLink("Delete", "Delete", "Recipes", new { Id = recipe.Id })
                     </td>   

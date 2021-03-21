@@ -1,12 +1,12 @@
-﻿@model IEnumerable<Cookbook.Common.Models.Recipe>
+﻿@model CookBook.WebPage.Models.RecipePartialViewModel
 @{
     ViewData["Title"] = "Ingredients";
 }
 <div class="row">
     <div class="col-lg-6">
-        @await Html.PartialAsync("RecipesList", Model)
+        @await Html.PartialAsync("RecipesList", Model.RecipesList)
     </div>
     <div class="col-lg-6">
-        @await Html.PartialAsync("CreateRecipe",Model.First())
+        @await Html.PartialAsync("CreateRecipe", Model.RecipeTobeAdded)
     </div>
 </div>

@@ -1,4 +1,6 @@
-@model Cookbook.Common.Models.Recipe
+@using Cookbook.Common
+@using CookBook.WebPage.Constants
+@model CookBook.WebPage.Models.RecipeViewModel
 
 @using (Html.BeginForm("CreateRecipe", "Recipes", FormMethod.Post, new
 {
@@ -15,36 +17,53 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Description.Text, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Description.Text, new { @class = "form-control", @Id = "Desctiption"})
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @Id = "Desctiption"})
         </div>
     </div>
-    
-    @for (var i = 0; i < Model.CookBookItems.Count(); i++)
+    <h4>Ingredients</h4>
+    @foreach (var item in Model.CookBookItems)
     {
-        <div class="form-group">
-            @Html.LabelFor(m => m.CookBookItems[i].Ingredient.Name, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.CookBookItems[i].Ingredient.Name, new { @class = "form-control", @Id = "Item_" + i})
-            </div>
-        </div>
+        <li>@item.Ingredient, @item.Quantity, @item.Unit, @item.Kcal100</li>
     }
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.CookBookItems, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.CookBookItems, 
-                        new SelectList(ViewBag.Ingredients), 
-                        "Select Ingredient")
-        </div>
-        <div class="col-md-10">
-             @Html.TextBoxFor(m => m.CookBookItems, new { @class = "form-control", @Id = "Item_"})
-        </div>
-    </div>
     <div class="form-group">
         <div class="col-md-10">
             <button type="submit" class="btn btn-dark">Create Recipe</button>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("AddIngredient", "Recipes", FormMethod.Post, new
+{
+    @class = "form-horizontal",
+    role = "form"
+}))
+{
+    <div class="form-group" name="ingredient-creation">
+        <p>Ingredient</p>
+        <div class="col-md-10">
+            @Html.DropDownList(@StringConstants.SelectedIngredientName, 
+                        new SelectList(ViewBag.Ingredients), 
+                        "Select Ingredient",
+                        new {@name = "ingredient-creation-list"})
+        </div>
+        <br>
+        <p>Quantity</p>
+        <div class="col-md-10">
+             @Html.TextBox(@StringConstants.SelectedQuantityName, new { @class = "form-control"})
+        </div>
+        <br>
+        <p>Unit</p>
+        <div class="col-md-10">
+            @Html.DropDownList(@StringConstants.SelectedUnitName, 
+                        new SelectList(Enum.GetNames(typeof(Unit))), 
+                        "Select Unit")
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-dark">Add Ingredient</button>
         </div>
     </div>
 }

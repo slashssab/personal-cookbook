@@ -1,23 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
-using Cookbook.Common.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using CookBook.WebPage.Helpers;
+using CookBook.WebPage.Models;
+using CookBook.WebPage.Constants;
+using System;
+using CookBook.WebPage.Utils;
+using System.Globalization;
 
 namespace CookBook.WebPage.Controllers
 {
     public class RecipesController : Controller
     {
+        private static RecipePartialViewModel _recipesPartialViewModel= new RecipePartialViewModel();
         public async Task<ActionResult> Index()
         {
-            ViewBag.Ingredients = new List<string>
-            {
-                "Chinken",
-                "honey"
-            };
-            IEnumerable<Recipe> AllIngredients = await Helpers.CookBookReciver.GetAllRecipes();
-            return View(AllIngredients);     
+            var allRecipes = await Helpers.CookBookReciver.GetAllRecipes();
+            var allIngredients = await CookBookData.GetIngredientsCollection();
+            ViewBag.Ingredients = allIngredients.Select(i => i.Name);
+            _recipesPartialViewModel.RecipesList = ViewModelMapper.MapToViewModel(allRecipes);
+            _recipesPartialViewModel.RecipeTobeAdded = Templates.RecipeToBeAddedTemplate;
+            return View(_recipesPartialViewModel);     
         }
 
         public ActionResult RecipesList()
@@ -26,9 +29,13 @@ namespace CookBook.WebPage.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateRecipe(Recipe recipe)
+        public async Task<ActionResult> CreateRecipe(RecipeViewModel recipe)
         {
-            await Helpers.CookBookExporter.InsertRecipe(recipe);
+            _recipesPartialViewModel.RecipeTobeAdded.Description = recipe.Description;
+            _recipesPartialViewModel.RecipeTobeAdded.Name = recipe.Name;
+
+            var recipeModel = ViewModelMapper.MapToModel(_recipesPartialViewModel.RecipeTobeAdded);
+            await Helpers.CookBookExporter.InsertRecipe(recipeModel);
             return RedirectToAction("Index", "Recipes");
         }
 
@@ -45,6 +52,23 @@ namespace CookBook.WebPage.Controllers
             var recipe = await Helpers.CookBookReciver.GetRecipeById(Id);
             var viewModel = ViewModelMapper.MapToViewModel(recipe);
             return View("RecipeView", viewModel);  
+        }
+
+        [HttpPost]
+        public ActionResult AddIngredient()
+        {
+            var ingredient = Request.Form[StringConstants.SelectedIngredientName].ToString();
+            var quantity = float.Parse(Request.Form[StringConstants.SelectedQuantityName].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            var unit = Request.Form[StringConstants.SelectedUnitName].ToString();
+            _recipesPartialViewModel.RecipeTobeAdded.CookBookItems.Add(
+                new CookBookItemViewModel
+                {
+                    Ingredient = ingredient,
+                    Quantity = quantity,
+                    Unit = unit
+                }
+            );
+            return RedirectToAction("Index", "Recipes",  _recipesPartialViewModel);
         }
     }
 }
