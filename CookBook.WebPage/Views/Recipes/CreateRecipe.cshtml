@@ -2,13 +2,20 @@
 @using CookBook.WebPage.Constants
 @model CookBook.WebPage.Models.RecipeViewModel
 
+<style type="text/css">
+    .add-ingredient-form {
+        background-color:gray;
+        border:2px solid;
+    }
+ </style>
+
 @using (Html.BeginForm("CreateRecipe", "Recipes", FormMethod.Post, new
 {
     @class = "form-horizontal",
     role = "form"
 }))
 {
-    <h4>Create new Recipe</h4>
+    <h4 style = "display: inline-block">Create new Recipe</h4>  <button type="submit" class="btn btn-dark">+</button>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
@@ -27,34 +34,28 @@
     {
         <li>@item.Ingredient, @item.Quantity, @item.Unit, @item.Kcal100</li>
     }
-    <div class="form-group">
-        <div class="col-md-10">
-            <button type="submit" class="btn btn-dark">Create Recipe</button>
-        </div>
-    </div>
 }
 
 @using (Html.BeginForm("AddIngredient", "Recipes", FormMethod.Post, new
 {
-    @class = "form-horizontal",
-    role = "form"
+    @class = "form-horizontal p-3 mb-2 bg-light text-dark add-ingredient-form",
+    role = "form",
 }))
 {
-    <div class="form-group" name="ingredient-creation">
-        <p>Ingredient</p>
+    <div class="form-group">
         <div class="col-md-10">
             @Html.DropDownList(@StringConstants.SelectedIngredientName, 
                         new SelectList(ViewBag.Ingredients), 
                         "Select Ingredient",
                         new {@name = "ingredient-creation-list"})
         </div>
-        <br>
-        <p>Quantity</p>
+    </div>
+    <div class="form-group">
         <div class="col-md-10">
-             @Html.TextBox(@StringConstants.SelectedQuantityName, new { @class = "form-control"})
+             @Html.TextBox(@StringConstants.SelectedQuantityName, "Quantity", new { @type = "number" })
         </div>
-        <br>
-        <p>Unit</p>
+    </div>
+    <div class="form-group">
         <div class="col-md-10">
             @Html.DropDownList(@StringConstants.SelectedUnitName, 
                         new SelectList(Enum.GetNames(typeof(Unit))), 
