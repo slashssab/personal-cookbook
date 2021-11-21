@@ -1,25 +1,13 @@
 @model CookBook.WebPage.Models.RecipeViewModel
 
-@using (Html.BeginForm("Recipe", "Recipes", FormMethod.Post, new
-{
-    @class = "form-horizontal",
-    role = "form"
-}))
-{
-    <h4>@Model.Name</h4>
-    <h5>Calories: @Model.Calories</h5>
+<h4>@Model.Name</h4>
+<h5>Calories: @Model.Calories</h5>
 
-    <h4>Ingredients</h4>
-    <ul>
-    @foreach (var item in Model.CookBookItems)
-    {
-        <li>@item.Ingredient, @item.Quantity, @item.Unit, @item.Kcal100</li>
-    }
-    </ul>
-    <p>@Model.Description</p>
-    <div class="form-group">
-        <div class="col-md-10">
-            <button type="submit" class="btn btn-dark">Create Recipe</button>
-        </div>
-    </div>
+<h4>Ingredients</h4>
+<ul>
+@foreach (var item in Model.CookBookItems)
+{
+    <li>@item.Ingredient, @item.Quantity, @item.Unit, @item.Kcal100</li>
 }
+</ul>
+<p>@Model.Description</p>
