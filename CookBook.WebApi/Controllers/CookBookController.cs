@@ -45,6 +45,13 @@ namespace Cookbook.Controllers
             return _repositoryHelper.GetRecipeById(id);
         }
 
+        [HttpGet("name")]
+        [ActionName(nameof(GetIngredientByName))]
+        public Ingredient GetIngredientByName(string name)
+        {
+            return _repositoryHelper.GetIngredientByName(name);
+        }
+
         [HttpPost]
         public IActionResult InsertIngredient([FromBody] Ingredient ingredient)
         {

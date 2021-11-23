@@ -55,17 +55,19 @@ namespace CookBook.WebPage.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddIngredient()
+        public async Task<ActionResult> AddIngredient()
         {
             var ingredient = Request.Form[StringConstants.SelectedIngredientName].ToString();
             var quantity = float.Parse(Request.Form[StringConstants.SelectedQuantityName].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             var unit = Request.Form[StringConstants.SelectedUnitName].ToString();
+            var kcal100 = (await Helpers.CookBookReciver.GetIngredientByName(ingredient)).Kcal100;
             _recipesPartialViewModel.RecipeTobeAdded.CookBookItems.Add(
                 new CookBookItemViewModel
                 {
                     Ingredient = ingredient,
                     Quantity = quantity,
-                    Unit = unit
+                    Unit = unit,
+                    Kcal100 = kcal100
                 }
             );
             return RedirectToAction("Index", "Recipes",  _recipesPartialViewModel);

@@ -36,7 +36,7 @@ namespace Cookbook.WebApi.DAL.Repositories
 
         public IEnumerable<Ingredient> GetByQuery(Func<Ingredient, bool> query)
         {
-            throw new System.NotImplementedException();
+            return _dbContext.Ingredients.Where(query);
         }
 
         public void Insert(Ingredient item)

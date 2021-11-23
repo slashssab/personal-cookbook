@@ -15,7 +15,14 @@ namespace CookBook.WebPage.Helpers
             var calories = 0.0;
             recipe.CookBookItems.ForEach(item =>
             {
-                calories += item.Quantity * 0.01 * item.Ingredient.Kcal100;
+                if (item.Unit != Cookbook.Common.Unit.piece)
+                {
+                    calories += item.Quantity * 0.01 * item.Ingredient.Kcal100;    
+                }
+                else
+                {
+                    calories += item.Quantity * item.Ingredient.Kcal100;
+                }
                 cookBookItems.Add(MapToViewModel(item));
             });
 

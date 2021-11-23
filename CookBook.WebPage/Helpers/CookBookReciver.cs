@@ -16,6 +16,12 @@ namespace CookBook.WebPage.Helpers
             return await _callGetCookBookApi<List<Ingredient>>(StringConstants.GetAllIngredientsApiAction);
         }
 
+        public async static Task<Ingredient> GetIngredientByName(string name)
+        {
+            string actionString = string.Format(StringConstants.GetIngredientByNameApiAction, name);
+            return await _callGetCookBookApi<Ingredient>(actionString);
+        }
+
         public async static Task<IEnumerable<Recipe>> GetAllRecipes()
         {
             return await _callGetCookBookApi<List<Recipe>>(StringConstants.GetAllRecipesApiAction);

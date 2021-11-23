@@ -11,5 +11,6 @@ namespace Cookbook.Common.Constants
         public const string InsertRecipeApiAction = "_api/cookbookitems/InsertRecipe";
         public const string DeleteRecipeApiAction = "_api/cookbookitems/DeleteRecipe/id?id={0}";
         public const string DeleteIngredientApiAction = "_api/cookbookitems/DeleteIngredient/id?id={0}";
+        public const string GetIngredientByNameApiAction = "_api/cookbookitems/GetIngredientByName/name?name={0}";
     }
 }

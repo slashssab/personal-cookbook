@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cookbook.Common.Models;
 using Cookbook.DAL.EF;
 using Cookbook.WebApi.DAL.Repositories;
@@ -16,6 +17,11 @@ namespace Cookbook.WebApi.Helpers
         public IEnumerable<Ingredient> GetAllIngredients()
         {
             return _repositoriesManager.IngredientsRepository.GetAll();
+        }
+
+        public Ingredient GetIngredientByName(string name)
+        {
+            return _repositoriesManager.IngredientsRepository.GetByQuery(i => i.Name == name).Single();
         }
 
         public IEnumerable<Recipe> GetAllRecipes()
