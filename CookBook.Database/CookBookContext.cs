@@ -1,7 +1,7 @@
-using Cookbook.Common.Models;
+using CookBook.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cookbook.DAL.EF
+namespace Cookbook.Database
 {
     public class CookbookContext : DbContext
     {
@@ -18,19 +18,19 @@ namespace Cookbook.DAL.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Description>()
-                .HasOne<Recipe>(a => a.Recipe)
+                .HasOne(a => a.Recipe)
                 .WithOne(b => b.Description)
                 .HasForeignKey<Recipe>(e => e.DescriptionID)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CookBookItem>()
-                .HasOne<Recipe>(s => s.Recipe)
+                .HasOne(s => s.Recipe)
                 .WithMany(g => g.CookBookItems)
                 .HasForeignKey(s => s.RecipeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CookBookItem>()
-                .HasOne<Ingredient>(s => s.Ingredient)
+                .HasOne(s => s.Ingredient)
                 .WithMany(g => g.CookBookItems)
                 .HasForeignKey(s => s.IngredientId)
                 .OnDelete(DeleteBehavior.Cascade);

@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-
-namespace Cookbook.WebApi.DAL.Repositories
+namespace Cookbook.Database.Repositories
 {
     public interface IRepository<T>
     {

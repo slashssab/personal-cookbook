@@ -1,6 +1,4 @@
-using Cookbook.DAL.EF;
-
-namespace Cookbook.WebApi.DAL.Repositories
+namespace Cookbook.Database.Repositories
 {
     public class RepositoriesManager
     {

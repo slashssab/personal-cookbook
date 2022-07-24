@@ -1,15 +1,13 @@
-using System.Collections.Generic;
-using System.Linq;
-using Cookbook.Common.Models;
-using Cookbook.DAL.EF;
-using Cookbook.WebApi.DAL.Repositories;
+﻿using Cookbook.Database.Repositories;
+using CookBook.Database;
+using CookBook.Database.Models;
 
-namespace Cookbook.WebApi.Helpers
+namespace Cookbook.Database
 {
-    public class RepositoriesHelper
+    public class DataProvider : IDataProvider
     {
         private RepositoriesManager _repositoriesManager;
-        public RepositoriesHelper(CookbookContext _context)
+        public DataProvider(CookbookContext _context)
         {
             _repositoriesManager = new RepositoriesManager(_context);
         }
@@ -38,7 +36,7 @@ namespace Cookbook.WebApi.Helpers
         {
             return _repositoriesManager.CookBookItemsRepository.GetById(id);
         }
-        
+
         public IEnumerable<CookBookItem> GetCookBookItemsByRecipeId(int id)
         {
             return _repositoriesManager.CookBookItemsRepository.GetByQuery(ci => ci.RecipeId == id);

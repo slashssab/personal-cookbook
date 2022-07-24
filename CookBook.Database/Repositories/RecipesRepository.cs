@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cookbook.Common.Models;
-using Cookbook.DAL.EF;
+using CookBook.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cookbook.WebApi.DAL.Repositories
+namespace Cookbook.Database.Repositories
 {
     public class RecipesRepository : IRecipesRepository
     {

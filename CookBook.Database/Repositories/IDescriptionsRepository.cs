@@ -1,6 +1,6 @@
-using Cookbook.Common.Models;
+using CookBook.Database.Models;
 
-namespace Cookbook.WebApi.DAL.Repositories
+namespace Cookbook.Database.Repositories
 {
     public interface IDescriptionsRepository : IRepository<Description>
     {
