@@ -1,25 +1,22 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore;
+using PersonalCookBook.Api;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public static class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    /// <summary>
+    /// Main   
+    /// </summary>    
+    /// <param name="args"></param>    
+    /// 
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    private static IWebHostBuilder CreateHostBuilder(string[] args) => WebHost.CreateDefaultBuilder(args)
+           .UseDefaultServiceProvider((context, options) =>
+           {
+               options.ValidateScopes = !context.HostingEnvironment.IsProduction();
+               options.ValidateOnBuild = true;
+           }).UseStartup<Startup>();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
