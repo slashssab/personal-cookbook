@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.32" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.4" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="ClientApp\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="ClientApp\asset-manifest.json" />
+		<Content Remove="ClientApp\manifest.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="ClientApp\asset-manifest.json" />
+		<None Include="ClientApp\manifest.json" />
+	</ItemGroup>
+</Project>
