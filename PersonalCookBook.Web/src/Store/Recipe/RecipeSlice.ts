@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Recipe } from "../../Models/Recipe"
 import { RecipeState } from "./RecipeState"
-import { Product } from "../../Models/Product"
 import { RootState } from "../store"
+import { Ingredient } from "../../Models/Ingredient"
 
 const initialState: RecipeState = {
     Recipe: {
@@ -17,7 +17,7 @@ export const recipeSlice = createSlice({
     name: 'recipe',
     initialState,
     reducers: {
-        addProduct: (state, action: PayloadAction<Product>) => {
+        addProduct: (state, action: PayloadAction<Ingredient>) => {
             state.Recipe = { ...state.Recipe, Ingredients: [...state.Recipe.Ingredients, action.payload] }
         }
     }

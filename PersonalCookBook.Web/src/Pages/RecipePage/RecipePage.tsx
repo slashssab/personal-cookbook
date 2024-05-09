@@ -1,10 +1,11 @@
 import { Button, Dialog, Tree, TreeItem, TreeItemLayout } from "@fluentui/react-components";
 import { useParams } from "react-router-dom";
-import { AddProductDialog } from "./Components/AddProductDialog";
+import { AddIngredientDialog } from "./Components/AddProductDialog";
 import { useState } from "react";
-import { Product } from "../../Models/Product";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { addProduct, selectRecipe } from "../../Store/Recipe/RecipeSlice";
+import { Ingredient } from "../../Models/Ingredient";
+import { RecipeIngredientsList } from "./Components/RecipeProductsList";
 
 
 export const RecipePage = () => {
@@ -17,29 +18,42 @@ export const RecipePage = () => {
         setOpenAddIngredientDialogState(open);
     }
 
-    const addIngredient = (ingredient: Product) => {
+    const addIngredient = (ingredient: Ingredient) => {
         dispatch(addProduct(ingredient))
         setOpenAddIngredientDialogState(false);
     }
 
     return (
         <>
-            Recipe Works! {id}
+            Recipe Id ({id})
             <Tree>
                 <TreeItem itemType="branch">
                     <TreeItemLayout>Ingredients:</TreeItemLayout>
                     <Tree>
-                        {recipe.Ingredients?.map(ingredient => (
+                        {recipe.Ingredients.length > 0 && <RecipeIngredientsList Products={recipe.Ingredients} />}
+                        {/* {recipe.Ingredients?.map(ingredient => (
                             //Add appropriate key.
-                            <TreeItem itemType="leaf" key={ingredient.Name}>
-                                <TreeItemLayout>{ingredient.Name}</TreeItemLayout>
-                            </TreeItem>))}
+                            <TreeItem itemType="leaf" key={ingredient.Product.Id}>
+                                <TreeItemLayout>{ingredient.Product.Name} {ingredient.Quantity} {ingredient.Product.Kcal}</TreeItemLayout>
+                            </TreeItem>))} */}
+                    </Tree>
+                </TreeItem>
+                <TreeItem itemType="branch">
+                    <TreeItemLayout>Recipe:</TreeItemLayout>
+                    <Tree>
+                        Recipe description.
+                        <TreeItem itemType="leaf">
+                            <TreeItemLayout> Total Kcal: {recipe.Ingredients.length > 0 && recipe.Ingredients.map(i => i.Quantity * i.Product.Kcal / 100).reduce((sum, current) => sum + current)} Kcal.</TreeItemLayout>
+                        </TreeItem>
+                        <TreeItem itemType="leaf">
+                            <TreeItemLayout> Total Protein: {recipe.Ingredients.length > 0 && recipe.Ingredients.map(i => i.Quantity * i.Product.Protein / 100).reduce((sum, current) => sum + current)} Kcal.</TreeItemLayout>
+                        </TreeItem>
                     </Tree>
                 </TreeItem>
             </Tree>
             <Button onClick={() => setOpenAddIngredientDialogState(true)} appearance="primary">Add ingredient</Button>
             <Dialog open={openAddIngredientDialogState}>
-                <AddProductDialog openDialog={openAddIngredientDialog} addProduct={addIngredient} />
+                <AddIngredientDialog openDialog={openAddIngredientDialog} addIngredient={addIngredient} />
             </Dialog>
         </>)
 }

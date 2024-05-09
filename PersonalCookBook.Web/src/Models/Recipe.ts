@@ -1,6 +1,6 @@
-import { Product } from "./Product";
+import { Ingredient } from "./Ingredient";
 
 export interface Recipe {
     Id: number;
-    Ingredients: Product[];
+    Ingredients: Ingredient[];
 }

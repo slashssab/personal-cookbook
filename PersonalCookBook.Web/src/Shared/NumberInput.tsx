@@ -20,9 +20,9 @@ const useStyles = makeStyles({
     return (
       <div className={styles.root}>
         <Label htmlFor={inputId} size={props.size} disabled={props.disabled}>
-          Text
+          Provide quantity (grams)
         </Label>
-        <Input type="number" id={inputId} {...props} />
+        <Input type="number" id={inputId} {...props} contentAfter="g" />
       </div>
     );
   };
