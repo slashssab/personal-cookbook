@@ -1,4 +1,4 @@
-import { Table, TableHeader, TableRow, TableHeaderCell, TableBody, TableCell, TableCellLayout, Avatar, PresenceBadgeStatus } from "@fluentui/react-components";
+import { Table, TableHeader, TableRow, TableHeaderCell, TableBody, TableCell } from "@fluentui/react-components";
 import { Ingredient } from "../../../Models/Ingredient";
 
 interface IRecipeIngredientsListProperties {
