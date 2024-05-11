@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalCookBook.Api", "PersonalCookBook.Api.csproj", "{A734EB48-28E4-445E-8577-DD53A2576579}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalCookBook.Application", "..\PersonalCookBook.Application\PersonalCookBook.Application.csproj", "{B017DC26-4B19-4931-8435-BFF486BD8DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalCookBook.Application", "..\PersonalCookBook.Application\PersonalCookBook.Application.csproj", "{B017DC26-4B19-4931-8435-BFF486BD8DAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

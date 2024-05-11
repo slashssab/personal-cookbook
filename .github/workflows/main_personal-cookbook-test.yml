@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build 'PersonalCookBook.Api' --configuration Release
+        run: dotnet build 'PersonalCookBook.Api/PersonalCookBook.sln'' --configuration Release
         
       - name: build front end
         run: npm --prefix PersonalCookBook.Web ci && npm --prefix PersonalCookBook.Web run build:test --verbose
