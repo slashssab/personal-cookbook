@@ -37,13 +37,15 @@ export const AddIngredientDialog = (dialogProps: AddProductDialogProperties) => 
         },
         {
             Id: 3,
-            Name: "Potato",
-            Kcal: 100
+            Name: "Turkey",
+            Kcal: 130,
+            Protein: 21
         },
         {
             Id: 4,
-            Name: "Tomato",
-            Kcal: 100
+            Name: "Knor Napoli",
+            Kcal: 135,
+            Protein: 5.7
         },
         {
             Id: 5,

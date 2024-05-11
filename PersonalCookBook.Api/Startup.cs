@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using FastEndpoints;
+using FastEndpoints.Swagger;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.HttpOverrides;
+using PersonalCookBook.Application.Extensions;
 
 namespace PersonalCookBook.Api
 {
@@ -7,7 +10,7 @@ namespace PersonalCookBook.Api
     {
         private IConfiguration Configuration { get; }
         private IWebHostEnvironment Environment { get; }
-
+        private const string _testEnvOrigin = "_testEnvOrigin";
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
@@ -19,9 +22,32 @@ namespace PersonalCookBook.Api
             services.Configure<ForwardedHeadersOptions>(options => { options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto; options.KnownNetworks.Clear(); options.KnownProxies.Clear(); });
 
             services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddSwaggerDocument(o =>
+            {
+                o.Title = "My API";
+                o.Version = "v1";
+            });
             services.AddHealthChecks();
-            services.AddCors();
+            services.AddFastEndpoints();
+            services.AddApplicationHandlers();
+
+            if (!Environment.IsDevelopment())
+            {
+                services.AddCors(options =>
+                {
+                    options.AddPolicy(name: _testEnvOrigin,
+                                      policy =>
+                                      {
+                                          policy.WithOrigins("https://personal-cookbook-test.azurewebsites.net/",
+                                                              "http://www.contoso.com");
+                                      });
+                });
+            }
+            else
+            {
+                services.AddCors();
+            }
+            
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
@@ -32,10 +58,6 @@ namespace PersonalCookBook.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(p => p.AllowAnyHeader()
-            .AllowAnyMethod()
-            .SetIsOriginAllowed((host) => true)
-            .AllowCredentials());
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -58,8 +80,16 @@ namespace PersonalCookBook.Api
 
             if (env.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+
+                app.UseCors(p => p.AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed((host) => true)
+                .AllowCredentials());
+                app.UseSwaggerGen();
+            }
+            else
+            {
+                app.UseCors(_testEnvOrigin);
             }
 
             app.UseHttpsRedirection();
@@ -67,7 +97,11 @@ namespace PersonalCookBook.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapFastEndpoints();
+            });
 
             app.Use(async (context, next) =>
             {

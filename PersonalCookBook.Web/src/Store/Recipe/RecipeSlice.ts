@@ -5,12 +5,13 @@ import { RootState } from "../store"
 import { Ingredient } from "../../Models/Ingredient"
 
 const initialState: RecipeState = {
-    Recipe: {
+    recipe: {
         Id: 0,
         Ingredients: []
     } as Recipe,
-    Loading: false,
-    Error: {},
+    status: 'idle',
+    loading: false,
+    error: {},
 }
 
 export const recipeSlice = createSlice({
@@ -18,7 +19,7 @@ export const recipeSlice = createSlice({
     initialState,
     reducers: {
         addProduct: (state, action: PayloadAction<Ingredient>) => {
-            state.Recipe = { ...state.Recipe, Ingredients: [...state.Recipe.Ingredients, action.payload] }
+            state.recipe = { ...state.recipe, Ingredients: [...state.recipe.Ingredients, action.payload] }
         }
     }
 })
@@ -26,6 +27,6 @@ export const recipeSlice = createSlice({
 export const { addProduct } = recipeSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectRecipe = (state: RootState) => state.recipe.Recipe
+export const selectRecipe = (state: RootState) => state.recipe.recipe
 
 export default recipeSlice.reducer

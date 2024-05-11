@@ -1,7 +1,8 @@
 import { Recipe } from "../../Models/Recipe";
 
 export interface RecipeState {
-    Recipe: Recipe;
-    Loading: boolean;
-    Error: Object;
+    recipe: Recipe;
+    loading: boolean;
+    status: 'idle' | 'loading' | 'succeed' | 'failed',
+    error: Object;
 }
