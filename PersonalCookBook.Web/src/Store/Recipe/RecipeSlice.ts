@@ -47,7 +47,7 @@ export const selectRecipeStatus = (state: RootState) => state.recipe.status;
 
 export default recipeSlice.reducer
 
-export const fetchRecipeById = createAsyncThunk('recipeHeaders/get', async (recipeId: number) => {
+export const fetchRecipeById = createAsyncThunk('recipe/get', async (recipeId: number) => {
     const response = await fetchData(recipeId);
     return response as Recipe;
 })
