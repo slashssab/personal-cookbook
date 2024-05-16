@@ -1,11 +1,10 @@
-import { Button, Dialog, Spinner, Tree, TreeItem, TreeItemLayout } from "@fluentui/react-components";
+import { Button, Dialog, Spinner } from "@fluentui/react-components";
 import { useParams } from "react-router-dom";
 import { AddIngredientDialog } from "./Components/AddProductDialog";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { addProduct, fetchRecipeById, selectRecipe, selectRecipeStatus } from "../../Store/Recipe/RecipeSlice";
 import { Ingredient } from "../../Models/Ingredient";
-import { RecipeIngredientsList } from "./Components/RecipeProductsList";
 import { RecipeTree } from "./Components/RecipeTree";
 
 
@@ -21,7 +20,7 @@ export const RecipePage = () => {
             const recipeId: number = +(id as string);
             dispatch(fetchRecipeById(recipeId))
         }
-    }, [recipeStatus, dispatch])
+    }, [recipeStatus, dispatch, id])
 
     const openAddIngredientDialog = (open: boolean) => {
         setOpenAddIngredientDialogState(open);
