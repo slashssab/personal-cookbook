@@ -8,6 +8,6 @@ namespace PersonalCookBook.Api.Controllers.Recipe
         public static string BuildRoute(int recipeId) => Route.Replace("{RecipeId:int}", recipeId.ToString());
 
         [QueryParam]
-        public int RecipeId { get; set; }
+        public int RecipeId { get; init; }
     }
 }

@@ -3,9 +3,9 @@ import {
 } from "@fluentui/react-components";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { fetchRecipeHeaders, selectRecipeHeaders, selectRecipeHeadersStatus } from "../Store/RecipesList/RecipeHeadersListSlice";
-import { useAppDispatch } from "../Store/hooks";
-import { RecipeHeadersList } from "./RecipePage/Components/RecipeHeadersList";
+import { fetchRecipeHeaders, selectRecipeHeaders, selectRecipeHeadersStatus } from "../../Store/RecipesList/RecipeHeadersListSlice";
+import { useAppDispatch } from "../../Store/hooks";
+import { RecipeHeadersList } from "./Components/RecipeHeadersList";
 
 export const RecipeListPage = () => {
   const dispatch = useAppDispatch()

@@ -34,5 +34,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\PersonalCookBook.Application\PersonalCookBook.Application.csproj" />
+	  <ProjectReference Include="..\PersonalCookBook.Resources\PersonalCookBook.Resources.csproj" />
 	</ItemGroup>
 </Project>

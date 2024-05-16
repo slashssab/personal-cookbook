@@ -1,5 +1,5 @@
 import './App.css';
-import { RecipeListPage } from './Pages/RecipeListPage';
+import { RecipeListPage } from './Pages/RecipeListPage/RecipeListPage';
 import { Route, Routes } from 'react-router-dom';
 import { RecipePage } from './Pages/RecipePage/RecipePage';
 

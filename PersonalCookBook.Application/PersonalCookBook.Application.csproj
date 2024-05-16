@@ -8,7 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PersonalCookBook.Domain\PersonalCookBook.Domain.csproj" />
+    <ProjectReference Include="..\PersonalCookBook.Resources\PersonalCookBook.Resources.csproj" />
   </ItemGroup>
 
 </Project>

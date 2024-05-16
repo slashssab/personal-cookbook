@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using System.Net.NetworkInformation;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace PersonalCookBook.Application.Extensions
 {

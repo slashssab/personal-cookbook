@@ -24,59 +24,59 @@ export const AddIngredientDialog = (dialogProps: AddProductDialogProperties) => 
     const dropdownId = useId("dropdown-default");
     const options = [
         {
-            Id: 1,
-            Name: "Chicken Breast",
-            Kcal: 165,
-            Protein: 31
+            id: 1,
+            name: "Chicken Breast",
+            kcal: 165,
+            protein: 31
         },
         {
-            Id: 2,
-            Name: "Pesto",
-            Kcal: 414,
-            Protein: 6.2
+            id: 2,
+            name: "Pesto",
+            kcal: 414,
+            protein: 6.2
         },
         {
-            Id: 3,
-            Name: "Turkey",
+            id: 3,
+            name: "Turkey",
             Kcal: 130,
-            Protein: 21
+            protein: 21
         },
         {
-            Id: 4,
-            Name: "Knor Napoli",
-            Kcal: 135,
-            Protein: 5.7
+            id: 4,
+            name: "Knor Napoli",
+            kcal: 135,
+            protein: 5.7
         },
         {
-            Id: 5,
-            Name: "Water",
-            Kcal: 100
+            id: 5,
+            name: "Water",
+            kcal: 100
         },
         {
-            Id: 6,
-            Name: "Olive oil",
-            Kcal: 100
+            id: 6,
+            name: "Olive oil",
+            kcal: 100
         },
         {
-            Id: 7,
-            Name: "Pasta",
-            Kcal: 354,
+            id: 7,
+            name: "Pasta",
+            kcal: 354,
             Protein: 12
         },
         {
-            Id: 8,
-            Name: "Brocoli",
-            Kcal: 100
+            id: 8,
+            name: "Brocoli",
+            kcal: 100
         },
         {
-            Id: 9,
-            Name: "Pasta",
-            Kcal: 100
+            id: 9,
+            name: "Pasta",
+            kcal: 100
         },
         {
-            Id: 10,
-            Name: "Salmon",
-            Kcal: 100
+            id: 10,
+            name: "Salmon",
+            kcal: 100
         }
     ] as Product[];
 
@@ -84,7 +84,7 @@ export const AddIngredientDialog = (dialogProps: AddProductDialogProperties) => 
     const [selectedProduct, setSelectedProduct] = useState<Product>();
     const [selectedProductQuantity, setSelectedProductQuantity] = useState<number>(0);
     const handleOptionSelect = (event: SelectionEvents, data: OptionOnSelectData) => {
-        const selectedProduct = options.find(p => p.Name === data.optionText);
+        const selectedProduct = options.find(p => p.name === data.optionText);
         setSelectedProduct(selectedProduct);
     }
 
@@ -105,8 +105,8 @@ export const AddIngredientDialog = (dialogProps: AddProductDialogProperties) => 
         }
         else {
             const ingredient = {
-                Product: selectedProduct,
-                Quantity: selectedProductQuantity
+                product: selectedProduct,
+                quantity: selectedProductQuantity
             }
             dialogProps.addIngredient(ingredient as Ingredient);
         }
@@ -119,7 +119,7 @@ export const AddIngredientDialog = (dialogProps: AddProductDialogProperties) => 
                 <DialogContent>
                     <div className={styles.root}>
                         <label id={dropdownId}>Select product</label>
-                        <span>Selected {selectedProduct?.Name}</span>
+                        <span>Selected {selectedProduct?.name}</span>
                         <Dropdown
                             aria-labelledby={dropdownId}
                             placeholder="product"
@@ -127,8 +127,8 @@ export const AddIngredientDialog = (dialogProps: AddProductDialogProperties) => 
                             onOptionSelect={handleOptionSelect}
                         >
                             {options.map((option) => (
-                                <Option key={option.Id} disabled={option.Name === "Beef"}>
-                                    {option.Name}
+                                <Option key={option.id} disabled={option.name === "Beef"}>
+                                    {option.name}
                                 </Option>
                             ))}
                         </Dropdown>

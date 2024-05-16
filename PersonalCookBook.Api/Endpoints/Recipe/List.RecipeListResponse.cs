@@ -1,7 +1,9 @@
-﻿namespace PersonalCookBook.Api.Endpoints.Recipe
+﻿using PersonalCookBook.Resources.Recipe;
+
+namespace PersonalCookBook.Api.Endpoints.Recipe
 {
     public class RecipeListResponse
     {
-        public RecipeHeaderRecord[] Recipes { get; init; } = [];
+        public RecipeHeaderResource[] Recipes { get; init; } = [];
     }
 }

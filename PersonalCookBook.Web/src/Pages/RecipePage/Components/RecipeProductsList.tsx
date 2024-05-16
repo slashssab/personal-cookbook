@@ -26,18 +26,18 @@ export const RecipeIngredientsList = (props: IRecipeIngredientsListProperties) =
             </TableHeader>
             <TableBody>
                 {props.Products.map((item) => (
-                    <TableRow key={item.Product.Id}>
+                    <TableRow key={item.product.id}>
                         <TableCell>
-                            {item.Product.Name}
+                            {item.product.name}
                         </TableCell>
                         <TableCell>
-                            {item.Product.Kcal} kcal
+                            {item.product.kcal} kcal
                         </TableCell>
                         <TableCell>
-                            {item.Quantity} g
+                            {item.quantity} g
                         </TableCell>
                         <TableCell>
-                            {item.Product.Kcal * item.Quantity / 100} kcal
+                            {item.product.kcal * item.quantity / 100} kcal
                         </TableCell>
                     </TableRow>
                 ))}
