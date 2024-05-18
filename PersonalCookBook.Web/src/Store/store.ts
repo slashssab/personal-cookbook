@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { recipeSlice } from "./Recipe/RecipeSlice";
 import { recipeHeadersSlice } from "./RecipesList/RecipeHeadersListSlice";
+import { productsListSlice } from "./ProductsList/ProductsListSlice";
 
 export const store = configureStore({
     reducer: {
         recipe: recipeSlice.reducer,
-        recipeHeaders: recipeHeadersSlice.reducer
+        recipeHeaders: recipeHeadersSlice.reducer,
+        products: productsListSlice.reducer
     }
 })
 
