@@ -3,13 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PersonalCookBook.Database.Repositories;
 
 namespace PersonalCookBook.Database.Extensions
 {
-    internal static class DependencyInjectionExtension
+    public static class DependencyInjectionExtension
     {
         public static IServiceCollection AddPersonalCookBookDatabase(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
         {
+            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddDbContext<PersonalCookBookDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("PersonalCookBookDatabase"));

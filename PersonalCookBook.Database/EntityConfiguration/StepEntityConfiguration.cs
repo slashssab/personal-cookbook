@@ -8,7 +8,8 @@ namespace PersonalCookBook.Database.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Step> builder)
         {
-            builder.HasNoKey();
+            builder.ToTable("Steps");
+            builder.HasKey(i => i.Id);
 
             builder.Property(s => s.Order).IsRequired();
             builder.Property(s => s.Type).IsRequired();

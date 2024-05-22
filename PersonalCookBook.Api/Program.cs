@@ -26,6 +26,7 @@ using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.HttpOverrides;
 using PersonalCookBook.Application.Extensions;
+using PersonalCookBook.Database.Extensions;
 
 const string _testEnvOrigin = "_testEnvOrigin";
 
@@ -41,6 +42,7 @@ builder.Services.AddSwaggerDocument(o =>
 builder.Services.AddHealthChecks();
 builder.Services.AddFastEndpoints();
 builder.Services.AddApplicationHandlers();
+builder.Services.AddPersonalCookBookDatabase(builder.Configuration, builder.Environment);
 
 if (!builder.Environment.IsDevelopment())
 {
@@ -104,7 +106,7 @@ else
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UsePersonalCookBookDatabaseMigration();
 //app.UseFastEndpoints().UseSwaggerGen();
 app.UseEndpoints(endpoints =>
 {

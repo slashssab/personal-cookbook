@@ -93,7 +93,7 @@ export const AddIngredientDialog = (dialogProps: AddProductDialogProperties) => 
                                     ))}
                                 </Dropdown>
                             </div>
-                            <NumberInput onChange={handleQuantityChanged} />
+                            <NumberInput text={"Provide quantity (grams)"} onChange={handleQuantityChanged} />
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={closeDialog} appearance="secondary">Close</Button>

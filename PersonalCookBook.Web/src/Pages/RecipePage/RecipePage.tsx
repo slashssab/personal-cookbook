@@ -27,7 +27,7 @@ export const RecipePage = () => {
     }
 
     const addIngredient = (ingredient: Ingredient) => {
-        dispatch(addProduct(ingredient))
+        dispatch(addProduct(ingredient));
         setOpenAddIngredientDialogState(false);
     }
 

@@ -4,7 +4,7 @@ namespace PersonalCookBook.Api.Endpoints.Recipe
 {
     public class CreateRecipeRequest
     {
-        public const string Route = "/Recipe";
+        public const string Route = "api/Recipe";
 
         public string Name { get; init; }
         public string Description { get; init; }

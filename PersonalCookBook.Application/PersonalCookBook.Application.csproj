@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PersonalCookBook.Database\PersonalCookBook.Database.csproj" />
     <ProjectReference Include="..\PersonalCookBook.Domain\PersonalCookBook.Domain.csproj" />
     <ProjectReference Include="..\PersonalCookBook.Resources\PersonalCookBook.Resources.csproj" />
   </ItemGroup>

@@ -9,7 +9,7 @@ namespace PersonalCookBook.Database.EntityConfiguration
         public void Configure(EntityTypeBuilder<Ingredient> builder)
         {
             builder.ToTable("Ingredients");
-            builder.HasNoKey();
+            builder.HasKey(i => i.Id);
 
             builder.HasOne<Recipe>().WithMany(r => r.Ingredients).HasForeignKey(i => i.RecipeId);
             builder.HasOne(i => i.Product).WithOne().HasForeignKey<Ingredient>(i => i.ProductId);
