@@ -18,7 +18,6 @@ export const ProductsListPage = () => {
 
     useEffect(() => {
         if (productsStatus === 'idle') {
-            ;
             dispatch(fetchProducts())
         }
     }, [productsStatus, dispatch])

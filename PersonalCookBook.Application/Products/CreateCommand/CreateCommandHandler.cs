@@ -9,13 +9,10 @@ namespace PersonalCookBook.Application.Products.CreateCommand
     {
         public async Task<ProductResource> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            var newProduct = new Product
-            {
-                Name = request.Name,
-                Kcal = request.Kcal,
-                Protein = request.Protein,
-                Carbs = request.Carbs,
-            };
+            var newProduct = Product.CreateNew(request.Name,
+                request.Kcal,
+                request.Protein,
+                request.Carbs);
 
             await _productRepository.AddAsync(newProduct);
             await _productRepository.SaveChangesAsync();

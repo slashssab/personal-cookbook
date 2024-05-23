@@ -29,13 +29,14 @@ export const productSlice = createSlice({
     }
 })
 
-export const fetchEditProduct = createAsyncThunk('products/new', async (request: Product) => {
+export const fetchEditProduct = createAsyncThunk('product/edit', async (request: Product, {dispatch}) => {
     const response = await fetchEdit(request);
+    // dispatch(fetchProducts());
     return response as Product;
 })
 
 const fetchEdit = async (request: Product) => {
-    const endpoint = process.env.REACT_APP_API_URL + "/Product/" + request.id;
+    const endpoint = process.env.REACT_APP_API_URL + "/Product/" + request.id + "/Edit";
     try {
         const response = await fetch(endpoint, {
             method: 'POST',

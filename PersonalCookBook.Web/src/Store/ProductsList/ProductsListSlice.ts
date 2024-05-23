@@ -3,6 +3,7 @@ import { RootState } from "../store";
 import { ProductsListState } from "./ProductsListState";
 import { Product } from "../../Models/Product";
 import { CreateProductDto } from "../../Models/ActionModels/CreateProductDto";
+import { fetchEditProduct } from "../Product/ProductSlice";
 
 const initialState: ProductsListState = {
     products: [],
@@ -38,6 +39,10 @@ export const productsListSlice = createSlice({
             .addCase(fetchCreateProduct.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error;
+            })
+            .addCase(fetchEditProduct.fulfilled, (state, action) => {
+                // Trigger fetching new products once product edited.
+                state.status = 'idle';
             })
     }
 })

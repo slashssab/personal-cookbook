@@ -65,7 +65,7 @@ export const CreateProductDialog = (dialogProps: CreateProductDialogProperties) 
             <DialogBody>
                 <DialogTitle>Create Product</DialogTitle>
                 <DialogContent>
-                    <TextInput text={"Name"} onChange={handleNameChanged} value={name.toString()} />
+                    <TextInput text={"Name"} onChange={handleNameChanged} value={name.toString()} required/>
                     <NumberInput text={"Calories"} onChange={handleCaloriesChanged} value={calories.toString()} contentAfter="g" />
                     <NumberInput text={"Proteins"} onChange={handleProteinsChanged} value={proteins.toString()} contentAfter="g"  />
                     <NumberInput text={"Carbohydrates"} onChange={handleCarbohydratesChanged} value={carbohydrates.toString()} contentAfter="g"  />
