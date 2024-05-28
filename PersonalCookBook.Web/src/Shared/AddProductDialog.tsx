@@ -1,10 +1,10 @@
 import { Button, DialogActions, DialogBody, DialogContent, DialogSurface, Option, DialogTitle, Dropdown, makeStyles, shorthands, useId, SelectionEvents, OptionOnSelectData, InputOnChangeData, Spinner } from "@fluentui/react-components"
 import { ChangeEvent, useEffect, useState } from "react";
-import { Product } from "../../../Models/Product";
-import { NumberInput } from "../../../Shared/NumberInput";
-import { Ingredient } from "../../../Models/Ingredient";
-import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { fetchProducts, selectProducts, selectProductsStatus } from "../../../Store/ProductsList/ProductsListSlice";
+import { Ingredient } from "../Models/Ingredient";
+import { Product } from "../Models/Product";
+import { useAppSelector, useAppDispatch } from "../Store/hooks";
+import { selectProducts, selectProductsStatus, fetchProducts } from "../Store/ProductsList/ProductsListSlice";
+import { NumberInput } from "./NumberInput";
 
 const useStyles = makeStyles({
     root: {

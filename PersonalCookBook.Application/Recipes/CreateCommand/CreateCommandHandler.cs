@@ -1,14 +1,14 @@
 ﻿using MediatR;
+using PersonalCookBook.Database.Repositories;
 using PersonalCookBook.Domain.RecipeAggregate;
 using PersonalCookBook.Resources.Recipe;
 
 namespace PersonalCookBook.Application.Recipes.CreateCommand
 {
-    public class CreateCommandHandler : IRequestHandler<CreateCommand, RecipeResource>
+    public class CreateCommandHandler(IRepository<Recipe> _recipeRepository) : IRequestHandler<CreateCommand, RecipeResource>
     {
         public async Task<RecipeResource> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            await Task.Delay(500);
             var newRecipe = Recipe.Create(
                 request.Name,
                 request.Description,
@@ -23,6 +23,9 @@ namespace PersonalCookBook.Application.Recipes.CreateCommand
                     Order = s.Order,
                     Content = s.Content
                 }).ToArray());
+
+            await _recipeRepository.AddAsync(newRecipe);
+            await _recipeRepository.SaveChangesAsync();
 
             return new RecipeResource(newRecipe.Id, request.Name, request.Ingredients, request.Steps);
         }

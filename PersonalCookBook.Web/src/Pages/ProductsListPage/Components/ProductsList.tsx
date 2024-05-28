@@ -1,5 +1,6 @@
 import { Table, TableHeader, TableRow, TableHeaderCell, TableBody, TableCell, Button } from "@fluentui/react-components";
 import { Product } from "../../../Models/Product";
+import { Text } from "@fluentui/react-components";
 
 interface IProductsList {
     products: Product[];
@@ -16,29 +17,35 @@ const columns = [
 
 export const ProductsList = (props: IProductsList) => {
     return (
-        <Table noNativeElements aria-label="Table without semantic HTML elements">
-            <TableHeader>
-                <TableRow>
-                    {columns.map((column) => (
-                        <TableHeaderCell key={column.columnKey}>
-                            {column.label}
-                        </TableHeaderCell>
-                    ))}
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {props.products.map((item) => (
-                    <TableRow key={item.id}>
-                        <TableCell>{item.name} </TableCell>
-                        <TableCell>{item.kcal}</TableCell>
-                        <TableCell>{item.protein} g</TableCell>
-                        <TableCell>{item.carbs} g</TableCell>
-                        <TableCell>
-                            <Button onClick={() => props.editProduct(item)} appearance="primary">Edit</Button>
-                        </TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
+        <>
+            {props.products.length === 0
+                ? <Text>No content to be displayed.</Text>
+                : <Table noNativeElements aria-label="Table without semantic HTML elements">
+                    <TableHeader>
+                        <TableRow>
+                            {columns.map((column) => (
+                                <TableHeaderCell key={column.columnKey}>
+                                    {column.label}
+                                </TableHeaderCell>
+                            ))}
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {props.products.map((item) => (
+                            <TableRow key={item.id}>
+                                <TableCell>{item.name} </TableCell>
+                                <TableCell>{item.kcal}</TableCell>
+                                <TableCell>{item.protein} g</TableCell>
+                                <TableCell>{item.carbs} g</TableCell>
+                                <TableCell>
+                                    <Button onClick={() => props.editProduct(item)} appearance="primary">Edit</Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            }
+        </>
+
     )
 }

@@ -1,9 +1,10 @@
 import { Tree, TreeItem, TreeItemLayout } from "@fluentui/react-components";
 import { Recipe } from "../../../Models/Recipe";
 import { RecipeIngredientsList } from "./RecipeProductsList";
+import { CreateRecipeDto } from "../../../Models/ActionModels/CreateRecipeDto";
 
 interface IRecipeTree {
-    recipe: Recipe;
+    recipe: Recipe | CreateRecipeDto;
 }
 
 export const RecipeTree = (props: IRecipeTree) => {

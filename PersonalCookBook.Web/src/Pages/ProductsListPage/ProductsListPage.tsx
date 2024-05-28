@@ -1,4 +1,4 @@
-import { Button, Dialog, Spinner } from "@fluentui/react-components";
+import { Button, Dialog } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../Store/hooks";
 import { selectProducts, selectProductsStatus, fetchProducts, fetchCreateProduct } from "../../Store/ProductsList/ProductsListSlice";
@@ -8,6 +8,7 @@ import { Product } from "../../Models/Product";
 import { CreateProductDialog } from "./Components/CreateProductDialog";
 import { CreateProductDto } from "../../Models/ActionModels/CreateProductDto";
 import { fetchEditProduct } from "../../Store/Product/ProductSlice";
+import { LazyContentLoader } from "../../Shared/LazyContentLoader";
 
 export const ProductsListPage = () => {
     const [openEditProductDialogState, setEditProductDialogState] = useState<{ opened: boolean, product: Product }>({ opened: false, product: {} as Product });
@@ -50,10 +51,10 @@ export const ProductsListPage = () => {
 
     return (
         <>
-            {products.length === 0
-                ? <Spinner />
-                : <ProductsList editProduct={editProductClicked} products={products} />
-            }
+            <LazyContentLoader status={productsStatus}>
+                <ProductsList editProduct={editProductClicked} products={products} />
+            </LazyContentLoader>
+
             <Button onClick={() => setOpenCreateProductDialogState(true)} appearance="primary">Add product</Button>
             <Dialog open={openCreateProductDialogState}>
                 <CreateProductDialog openDialog={setOpenCreateProductDialogState} createProduct={createProduct} />

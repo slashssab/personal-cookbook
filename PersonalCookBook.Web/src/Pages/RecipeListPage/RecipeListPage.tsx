@@ -1,11 +1,11 @@
-import {
-  Spinner
-} from "@fluentui/react-components";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { fetchRecipeHeaders, selectRecipeHeaders, selectRecipeHeadersStatus } from "../../Store/RecipesList/RecipeHeadersListSlice";
 import { useAppDispatch } from "../../Store/hooks";
 import { RecipeHeadersList } from "./Components/RecipeHeadersList";
+import { LazyContentLoader } from "../../Shared/LazyContentLoader";
+import { Link } from "react-router-dom";
+import { Button } from "@fluentui/react-components";
 
 export const RecipeListPage = () => {
   const dispatch = useAppDispatch()
@@ -19,10 +19,14 @@ export const RecipeListPage = () => {
 
   return (
     <>
-      {recipeHeaders.length === 0
-        ? <Spinner />
-        : <RecipeHeadersList recipeHeaders={recipeHeaders} />
-      }
+      <LazyContentLoader status={recipeHeadersStatus}>
+        <RecipeHeadersList recipeHeaders={recipeHeaders} />
+      </LazyContentLoader>
+
+      <Link to={`/recipe/create`}>
+        <Button appearance="primary">New recipe</Button>
+      </Link>
     </>
+
   );
 };
