@@ -37,7 +37,7 @@ export const RecipeIngredientsList = (props: IRecipeIngredientsListProperties) =
                             {item.quantity} g
                         </TableCell>
                         <TableCell>
-                            {item.product.kcal * item.quantity / 100} kcal
+                            {item.totalCalories} kcal
                         </TableCell>
                     </TableRow>
                 ))}

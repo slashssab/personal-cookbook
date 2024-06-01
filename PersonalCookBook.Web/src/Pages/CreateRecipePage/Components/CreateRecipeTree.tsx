@@ -1,14 +1,15 @@
-import { Tree, TreeItem, TreeItemLayout } from "@fluentui/react-components";
-import { Recipe } from "../../../Models/Recipe";
-import { RecipeIngredientsList } from "./RecipeProductsList";
 
-interface IRecipeTree {
-    recipe: Recipe;
+import { Tree, TreeItem, TreeItemLayout } from "@fluentui/react-components";
+import { CreateRecipeDto } from "../../../Models/ActionModels/CreateRecipeDto";
+import { RecipeIngredientsList } from "../../RecipePage/Components/RecipeProductsList";
+
+interface ICreateRecipeTree {
+    recipe: CreateRecipeDto;
 }
 
-export const RecipeTree = (props: IRecipeTree) => {
+export const CreateRecipeTree = (props: ICreateRecipeTree) => {
     return (
-        <Tree aria-label="RecipeTree">
+        <Tree>
             <TreeItem itemType="branch">
                 <TreeItemLayout>Ingredients:</TreeItemLayout>
                 <Tree>
@@ -20,12 +21,11 @@ export const RecipeTree = (props: IRecipeTree) => {
                 <TreeItemLayout>Recipe:</TreeItemLayout>
                 <Tree>
                     Recipe description.
-                    {props.recipe.description}
                     <TreeItem itemType="leaf">
-                        <TreeItemLayout> Total Kcal: {props.recipe.ingredients.length > 0 && props.recipe.totalCalories} Kcal.</TreeItemLayout>
+                        <TreeItemLayout> Total Kcal: {props.recipe.ingredients.length > 0 && props.recipe.ingredients.map(i => i.quantity * i.product.kcal / 100).reduce((sum, current) => sum + current)} Kcal.</TreeItemLayout>
                     </TreeItem>
                     <TreeItem itemType="leaf">
-                        <TreeItemLayout> Total Proteins: {props.recipe.ingredients.length > 0 && props.recipe.totalProteins} g.</TreeItemLayout>
+                        <TreeItemLayout> Total Proteins: {props.recipe.ingredients.length > 0 && props.recipe.ingredients.map(i => i.quantity * i.product.protein / 100).reduce((sum, current) => sum + current)} g.</TreeItemLayout>
                     </TreeItem>
                 </Tree>
             </TreeItem>

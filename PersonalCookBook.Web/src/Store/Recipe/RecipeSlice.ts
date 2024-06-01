@@ -4,12 +4,17 @@ import { RecipeState } from "./RecipeState"
 import { RootState } from "../store"
 import { Ingredient } from "../../Models/Ingredient"
 import { CreateRecipeDto } from "../../Models/ActionModels/CreateRecipeDto"
+import { EditRecipeDto } from "../../Models/ActionModels/EditRecipeDto"
 
 const initialState: RecipeState = {
     recipe: {
         id: 0,
         name: "",
-        ingredients: []
+        description: "",
+        ingredients: [],
+        steps: [],
+        totalCalories: 0,
+        totalProteins: 0
     } as Recipe,
     status: 'idle',
     loading: false,
@@ -20,8 +25,14 @@ export const recipeSlice = createSlice({
     name: 'recipe',
     initialState,
     reducers: {
-        addProduct: (state, action: PayloadAction<Ingredient>) => {
+        addIngredient: (state, action: PayloadAction<Ingredient>) => {
             state.recipe = { ...state.recipe, ingredients: [...state.recipe.ingredients, action.payload] }
+        },
+        updateName: (state, action: PayloadAction<string>) => {
+            state.recipe = { ...state.recipe, name: action.payload }
+        },
+        updateDescription: (state, action: PayloadAction<string>) => {
+            state.recipe = { ...state.recipe, description: action.payload }
         }
     },
     extraReducers(builder) {
@@ -48,15 +59,28 @@ export const recipeSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error;
             })
+            .addCase(editRecipe.pending, (state, action) => {
+                state.status = 'updating';
+            })
+            .addCase(editRecipe.fulfilled, (state, action) => {
+                state.status = 'updated';
+                state.recipe = action.payload;
+            })
+            .addCase(editRecipe.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error;
+            })
     }
 })
 
-export const { addProduct } = recipeSlice.actions
+export const { addIngredient } = recipeSlice.actions;
+export const { updateName: updateRecipeName } = recipeSlice.actions;
+export const { updateDescription: updateRecipeDescription } = recipeSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectRecipe = (state: RootState) => state.recipe.recipe;
 export const selectRecipeStatus = (state: RootState) => state.recipe.status;
-export const selectRecipeId  = (state: RootState) => state.recipe.recipe.id;
+export const selectRecipeId = (state: RootState) => state.recipe.recipe.id;
 
 export default recipeSlice.reducer
 
@@ -67,6 +91,11 @@ export const fetchRecipeById = createAsyncThunk('recipe/get', async (recipeId: n
 
 export const createRecipe = createAsyncThunk('recipe/new', async (newRecipe: CreateRecipeDto) => {
     const response = await fetchCreateRecipe(newRecipe);
+    return response as Recipe;
+})
+
+export const editRecipe = createAsyncThunk('recipe/edit', async (newRecipe: EditRecipeDto) => {
+    const response = await fetchEditRecipe(newRecipe);
     return response as Recipe;
 })
 
@@ -89,6 +118,27 @@ const fetchData = async (recipeId: number) => {
 
 const fetchCreateRecipe = async (newRecipe: CreateRecipeDto) => {
     const endpoint = process.env.REACT_APP_API_URL + "/Recipe";
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(newRecipe),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        const result = await response.json();
+
+        const recipe = result as Recipe;
+        return recipe;
+    }
+    catch (e) {
+        console.error(e);
+    }
+}
+
+const fetchEditRecipe = async (newRecipe: EditRecipeDto) => {
+    const endpoint = process.env.REACT_APP_API_URL + "/Recipe/" + newRecipe.id + "/Edit";
     try {
         const response = await fetch(endpoint, {
             method: 'POST',

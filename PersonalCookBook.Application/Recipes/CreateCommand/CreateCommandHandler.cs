@@ -27,7 +27,7 @@ namespace PersonalCookBook.Application.Recipes.CreateCommand
             await _recipeRepository.AddAsync(newRecipe);
             await _recipeRepository.SaveChangesAsync();
 
-            return new RecipeResource(newRecipe.Id, request.Name, request.Ingredients, request.Steps);
+            return new RecipeResource(newRecipe.Id, request.Name, newRecipe.Description,request.Ingredients, request.Steps);
         }
     }
 }

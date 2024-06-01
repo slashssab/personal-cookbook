@@ -2,7 +2,7 @@ import { Button, Dialog, Spinner } from "@fluentui/react-components";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
-import { addProduct, fetchRecipeById, selectRecipe, selectRecipeStatus } from "../../Store/Recipe/RecipeSlice";
+import { addIngredient, fetchRecipeById, selectRecipe, selectRecipeStatus } from "../../Store/Recipe/RecipeSlice";
 import { Ingredient } from "../../Models/Ingredient";
 import { RecipeTree } from "./Components/RecipeTree";
 import { AddIngredientDialog } from "../../Shared/AddProductDialog";
@@ -16,7 +16,7 @@ export const RecipePage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (recipeStatus === 'idle' ||  recipeStatus === 'created') {
+        if (recipeStatus === 'idle' ||  recipeStatus === 'created' || recipeStatus === 'updated') {
             const recipeId: number = +(id as string);
             dispatch(fetchRecipeById(recipeId))
         }
@@ -26,8 +26,8 @@ export const RecipePage = () => {
         setOpenAddIngredientDialogState(open);
     }
 
-    const addIngredient = (ingredient: Ingredient) => {
-        dispatch(addProduct(ingredient));
+    const addIngredientCalled = (ingredient: Ingredient) => {
+        dispatch(addIngredient(ingredient));
         setOpenAddIngredientDialogState(false);
     }
 
@@ -41,7 +41,7 @@ export const RecipePage = () => {
                     <RecipeTree recipe={recipe} />
                     <Button onClick={() => setOpenAddIngredientDialogState(true)} appearance="primary">Add ingredient</Button>
                     <Dialog open={openAddIngredientDialogState}>
-                        <AddIngredientDialog openDialog={openAddIngredientDialog} addIngredient={addIngredient} />
+                        <AddIngredientDialog openDialog={openAddIngredientDialog} addIngredient={addIngredientCalled} />
                     </Dialog>
                 </>
             }

@@ -1,7 +1,8 @@
-import { Table, TableHeader, TableRow, TableHeaderCell, TableBody, TableCell, TableCellLayout, Avatar } from "@fluentui/react-components";
+import { Table, TableHeader, TableRow, TableHeaderCell, TableBody, TableCell, TableCellLayout, Avatar, Button } from "@fluentui/react-components";
 import { Link } from "react-router-dom";
 import { RecipeHeader } from "../../../Models/RecipeHeader";
 import { Text } from "@fluentui/react-components";
+import {Edit12Regular } from "@fluentui/react-icons";
 
 interface IRecipeHeadersList {
     recipeHeaders: RecipeHeader[];
@@ -11,7 +12,7 @@ const columns = [
     { columnKey: "recipeName", label: "Recipe name" },
     { columnKey: "author", label: "Author" },
     { columnKey: "totalCalories", label: "Total calories" },
-    { columnKey: "time", label: "Time" },
+    { columnKey: "actions", label: "Actions" },
 ];
 
 export const RecipeHeadersList = (props: IRecipeHeadersList) => {
@@ -53,7 +54,10 @@ export const RecipeHeadersList = (props: IRecipeHeadersList) => {
                                 <TableCell>{item.totalCalories} Kcal</TableCell>
                                 <TableCell>
                                     <Link to={`/recipe/${item.id}`}>
-                                        Try it!
+                                        <Button shape="square" appearance="primary">Try it!</Button>
+                                    </Link>
+                                    <Link to={`/recipe/${item.id}/edit`}>
+                                        <Button shape="square" appearance="outline" icon={<Edit12Regular />} iconPosition={'after'}>Edit</Button>
                                     </Link>
                                 </TableCell>
                             </TableRow>

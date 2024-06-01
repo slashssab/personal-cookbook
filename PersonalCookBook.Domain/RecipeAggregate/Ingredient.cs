@@ -11,5 +11,22 @@ namespace PersonalCookBook.Domain.RecipeAggregate
         public double Quantity { get; set; }
         public Unit Unit { get; set; }
         public Product Product { get; set; }
+
+        public void Update(int productId, double quantity, Unit unit) 
+        { 
+            ProductId = productId;
+            Quantity = quantity;
+            Unit = unit;
+        }
+
+        public void UpdateQuantity(double newQuantity)
+        {
+            Quantity = newQuantity;
+        }
+
+        public void UpdateUnit(Unit unit)
+        {
+            Unit = unit;
+        }
     }
 }

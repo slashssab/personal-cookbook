@@ -1,19 +1,16 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using PersonalCookBook.Database.Repositories;
-using PersonalCookBook.Domain.RecipeAggregate;
 using PersonalCookBook.Resources.Product;
 using PersonalCookBook.Resources.Recipe;
 
 namespace PersonalCookBook.Application.Recipes.GetRecipeByIdQuery
 {
-    public class GetRecipeByIdQueryHandler(IRepository<Recipe> _recipeRepository) : IRequestHandler<GetRecipeByIdQuery, RecipeResource>
+    public class GetRecipeByIdQueryHandler(IRecipeRepository _recipeRepository) : IRequestHandler<GetRecipeByIdQuery, RecipeResource>
     {
         public async Task<RecipeResource> Handle(GetRecipeByIdQuery request, CancellationToken cancellationToken)
         {
-            var recipe = await _recipeRepository.Query()
-                .Include(r => r.Ingredients).ThenInclude(r => r.Product)
-                .FirstOrDefaultAsync(r => r.Id == request.Id);
+            var recipe = await _recipeRepository.GetRecipeAggregateAsync(request.Id, cancellationToken);
+            
             if (recipe == null)
             {
                 throw new ArgumentNullException(nameof(recipe));
@@ -33,7 +30,7 @@ namespace PersonalCookBook.Application.Recipes.GetRecipeByIdQuery
                 )
             ).ToArray();
 
-            return new RecipeResource(recipe.Id, recipe.Name, ingredients, []);
+            return new RecipeResource(recipe.Id, recipe.Name, recipe.Description,ingredients, []);
         }
     }
 }

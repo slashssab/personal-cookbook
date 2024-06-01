@@ -12,6 +12,8 @@ namespace PersonalCookBook.Database.Extensions
         public static IServiceCollection AddPersonalCookBookDatabase(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
         {
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+            services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddDbContext<PersonalCookBookDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("PersonalCookBookDatabase"));

@@ -1,7 +1,8 @@
 import { Ingredient } from "../Ingredient";
 import { Step } from "../Step";
 
-export interface CreateRecipeDto {
+export interface EditRecipeDto {
+    id: number;
     name: string;
     description: string;
     ingredients: Ingredient[];
