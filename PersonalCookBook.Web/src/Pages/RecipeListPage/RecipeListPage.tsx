@@ -24,7 +24,7 @@ export const RecipeListPage = () => {
       </LazyContentLoader>
 
       <Link to={`/recipe/create`}>
-        <Button appearance="primary">New recipe</Button>
+        <Button shape="square" appearance="primary">New recipe</Button>
       </Link>
     </>
 

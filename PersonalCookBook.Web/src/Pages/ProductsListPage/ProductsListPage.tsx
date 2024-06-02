@@ -55,7 +55,7 @@ export const ProductsListPage = () => {
                 <ProductsList editProduct={editProductClicked} products={products} />
             </LazyContentLoader>
 
-            <Button onClick={() => setOpenCreateProductDialogState(true)} appearance="primary">Add product</Button>
+            <Button shape="square" onClick={() => setOpenCreateProductDialogState(true)} appearance="primary">Add product</Button>
             <Dialog open={openCreateProductDialogState}>
                 <CreateProductDialog openDialog={setOpenCreateProductDialogState} createProduct={createProduct} />
             </Dialog>

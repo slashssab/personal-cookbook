@@ -39,7 +39,7 @@ export const RecipePage = () => {
                 <>
                     Recipe Id ({id}), Recipe Name ({recipe.name})
                     <RecipeTree recipe={recipe} />
-                    <Button onClick={() => setOpenAddIngredientDialogState(true)} appearance="primary">Add ingredient</Button>
+                    <Button shape="square" onClick={() => setOpenAddIngredientDialogState(true)} appearance="primary">Add ingredient</Button>
                     <Dialog open={openAddIngredientDialogState}>
                         <AddIngredientDialog openDialog={openAddIngredientDialog} addIngredient={addIngredientCalled} />
                     </Dialog>
