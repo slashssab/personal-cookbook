@@ -1,4 +1,4 @@
-import { makeStyles, shorthands, Title1, Title2 } from "@fluentui/react-components";
+import { makeStyles, shorthands, Title1 } from "@fluentui/react-components";
 import { Link } from "react-router-dom";
 import { NavigationRegular } from '@fluentui/react-icons';
 
