@@ -4,29 +4,23 @@ import { Button, Dialog, InputOnChangeData, Spinner, Title1, Toast, ToastBody, T
 import { AddIngredientDialog } from "../../Shared/AddProductDialog";
 import { RecipeTree } from "../RecipePage/Components/RecipeTree";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
-import { addIngredient, editRecipe, fetchRecipeById, selectRecipe, selectRecipeStatus, updateRecipeDescription, updateRecipeName } from "../../Store/Recipe/RecipeSlice";
+import { addIngredient, addStep, editRecipe, fetchRecipeById, selectRecipe, selectRecipeStatus, updateRecipeDescription, updateRecipeName } from "../../Store/Recipe/RecipeSlice";
 import { useParams } from "react-router-dom";
 import { TextInput } from "../../Shared/TextInput";
 import { EditRecipeDto } from "../../Models/ActionModels/EditRecipeDto";
+import { AddStepDialog } from "../../Shared/AddStepDialog";
+import { Step } from "../../Models/Step";
 
 export const EditRecipePage = () => {
     const { id } = useParams();
     const toasterId = useId("toaster");
     const { dispatchToast } = useToastController(toasterId);
     const [openAddIngredientDialogState, setOpenAddIngredientDialogState] = useState<boolean>(false);
+    const [openAddStepDialogState, setOpenAddStepDialogState] = useState<boolean>(false);
     const [canSubmitRecipe, setCanSubmitRecipe] = useState<boolean>(false);
     const recipe = useAppSelector(selectRecipe);
     const recipeStatus = useAppSelector(selectRecipeStatus);
     const dispatch = useAppDispatch()
-
-    // const notifyRecipeUpdated = () =>
-    //     dispatchToast(
-    //         <Toast>
-    //             <ToastTitle>Recipe updated!</ToastTitle>
-    //             <ToastBody subtitle="Subtitle">Checkout the latest version.</ToastBody>
-    //         </Toast>,
-    //         { intent: "success" }
-    //     );
 
     const recipeUpdatedCallback = useCallback(() => {
         dispatchToast(
@@ -67,11 +61,20 @@ export const EditRecipePage = () => {
         setOpenAddIngredientDialogState(open);
     }
 
+    const openAddStepDialog = (open: boolean) => {
+        setOpenAddStepDialogState(open);
+    }
+
     const addIngredientCalled = (ingredient: Ingredient) => {
         dispatch(addIngredient(ingredient));
         setOpenAddIngredientDialogState(false);
     }
 
+    const addStepCalled = (step: Step) => {
+        step.order = recipe.steps.length;
+        dispatch(addStep(step));
+        setOpenAddStepDialogState(false);
+    }
 
     const handleNameChanged = (event: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
         dispatch(updateRecipeName(data.value));
@@ -102,10 +105,14 @@ export const EditRecipePage = () => {
                     <TextInput text="Description" value={recipe.description} onChange={handleDescriptionChanged} />
                     <RecipeTree recipe={recipe} />
                     <Button onClick={() => setOpenAddIngredientDialogState(true)} appearance="primary">Add ingredient</Button>
+                    <Button onClick={() => setOpenAddStepDialogState(true)} appearance="primary">Add step</Button>
                     <Button onClick={() => updateRecipeClicked()} appearance="primary" disabled={!canSubmitRecipe}>Submit</Button>
                     <Toaster toasterId={toasterId} />
                     <Dialog open={openAddIngredientDialogState}>
                         <AddIngredientDialog openDialog={openAddIngredientDialog} addIngredient={addIngredientCalled} />
+                    </Dialog>
+                    <Dialog open={openAddStepDialogState}>
+                        <AddStepDialog openDialog={openAddStepDialog} addStep={addStepCalled} />
                     </Dialog>
                 </>
             }

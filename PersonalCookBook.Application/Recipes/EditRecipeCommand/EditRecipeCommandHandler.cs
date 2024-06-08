@@ -27,12 +27,35 @@ namespace PersonalCookBook.Application.Recipes.EditRecipeCommand
                 Unit = i.Unit
             }).ToArray());
 
+            recipe.UpdateIngredients(request.Ingredients.Select(i => new Ingredient
+            {
+                ProductId = i.Product.Id,
+                Quantity = i.Quantity,
+                Unit = i.Unit
+            }).ToArray());
+
+            recipe.UpdateSteps(request.Steps.Select(s => new Step
+            {
+                Id = s.Id,
+                Content = s.Content,
+                Type = s.Type,
+                Order = s.Order,
+            }).ToArray());
+
             await _recipeRepository.SaveChangesAsync();
             var products = await _productRepository.GetProductsByIdsAsync(recipe.Ingredients.Select(i => i.ProductId).ToArray(), cancellationToken);
 
             var ingredients = MapIngredients(recipe.Ingredients.ToArray(), products.ToArray());
+            var steps = recipe.Steps.Select(s =>
+                 new StepResource(
+                    s.Id,
+                    s.Order,
+                    s.Content,
+                    s.Type
+                )
+            ).ToArray();
 
-            return new RecipeResource(recipe.Id, recipe.Name, recipe.Description,ingredients, []);
+            return new RecipeResource(recipe.Id, recipe.Name, recipe.Description,ingredients, steps);
         }
 
         private IngredientResource[] MapIngredients(Ingredient[] Ingredients, Product[] products)

@@ -30,7 +30,16 @@ namespace PersonalCookBook.Application.Recipes.GetRecipeByIdQuery
                 )
             ).ToArray();
 
-            return new RecipeResource(recipe.Id, recipe.Name, recipe.Description,ingredients, []);
+            var steps = recipe.Steps.Select(s =>
+                 new StepResource(
+                    s.Id,
+                    s.Order,
+                    s.Content,
+                    s.Type
+                )
+            ).ToArray();
+
+            return new RecipeResource(recipe.Id, recipe.Name, recipe.Description,ingredients, steps);
         }
     }
 }

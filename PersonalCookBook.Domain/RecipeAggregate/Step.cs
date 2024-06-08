@@ -9,5 +9,15 @@ namespace PersonalCookBook.Domain.RecipeAggregate
         public int Order {  get; set; }
         public string Content { get; set; }
         public StepType Type { get; set; }
+
+        public void UpdateContent(string newContent)
+        {
+            Content = newContent;
+        }
+
+        public void UpdateType(StepType type)
+        {
+            Type = type;
+        }
     }
 }

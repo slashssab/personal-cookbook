@@ -5,6 +5,7 @@ import { RootState } from "../store"
 import { Ingredient } from "../../Models/Ingredient"
 import { CreateRecipeDto } from "../../Models/ActionModels/CreateRecipeDto"
 import { EditRecipeDto } from "../../Models/ActionModels/EditRecipeDto"
+import { Step } from "../../Models/Step"
 
 const initialState: RecipeState = {
     recipe: {
@@ -27,6 +28,9 @@ export const recipeSlice = createSlice({
     reducers: {
         addIngredient: (state, action: PayloadAction<Ingredient>) => {
             state.recipe = { ...state.recipe, ingredients: [...state.recipe.ingredients, action.payload] }
+        },
+        addStep: (state, action: PayloadAction<Step>) => {
+            state.recipe = { ...state.recipe, steps: [...state.recipe.steps, action.payload] }
         },
         updateName: (state, action: PayloadAction<string>) => {
             state.recipe = { ...state.recipe, name: action.payload }
@@ -73,7 +77,7 @@ export const recipeSlice = createSlice({
     }
 })
 
-export const { addIngredient } = recipeSlice.actions;
+export const { addIngredient, addStep } = recipeSlice.actions;
 export const { updateName: updateRecipeName } = recipeSlice.actions;
 export const { updateDescription: updateRecipeDescription } = recipeSlice.actions;
 

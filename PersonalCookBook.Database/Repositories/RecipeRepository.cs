@@ -19,6 +19,7 @@ namespace PersonalCookBook.Database.Repositories
         {
             return await Query(true)
                 .Include(r => r.Ingredients).ThenInclude(r => r.Product)
+                .Include(r => r.Steps)
                 .FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
         }
     }
